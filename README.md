@@ -119,3 +119,10 @@ Never place API keys, passwords or personal data in generated projects. See [SEC
 ## License
 
 MIT License. See [LICENSE](LICENSE).
+
+## Demo
+
+DevLaunch Lite generates a ready-to-run FastAPI service with interactive API documentation.
+
+![Generated FastAPI service](docs/images/demo-fastapi.png)
+
