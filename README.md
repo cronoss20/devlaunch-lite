@@ -2,7 +2,7 @@
 
 > Generate a production-ready FastAPI service with testing, Docker and CI in seconds.
 
-[![CI](https://github.com/YOUR-USERNAME/devlaunch-lite/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/devlaunch-lite/actions/workflows/ci.yml)
+[![CI](https://github.com/cronoss20/devlaunch-lite/actions/workflows/ci.yml/badge.svg)](https://github.com/cronoss20/devlaunch-lite/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
