@@ -1,130 +1,137 @@
-[English](README.md) | [Español](README.es.md)
+[English](README.md) | **Español**
 
 # DevLaunch Lite
 
-> Generate a production-ready FastAPI service with testing, Docker and CI in seconds.
+> Genera servicios FastAPI listos para producción con pruebas, Docker e integración continua en segundos.
 
 [![CI](https://github.com/cronoss20/devlaunch-lite/actions/workflows/ci.yml/badge.svg)](https://github.com/cronoss20/devlaunch-lite/actions/workflows/ci.yml)
-[![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
+[![Licencia: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## The problem
+![Servicio FastAPI generado](docs/images/demo-fastapi.png)
 
-Starting a backend service usually means repeating the same setup: folders, testing, linting, Docker, documentation and continuous integration. This creates inconsistency and wastes engineering time.
+## Descripción
 
-## The solution
+Crear un nuevo servicio backend suele exigir configurar repetidamente carpetas, pruebas, análisis de código, Docker, documentación y CI/CD.
 
-DevLaunch Lite is an opinionated command-line tool that generates a clean FastAPI service with the essential engineering foundations already configured.
+DevLaunch Lite automatiza todo ese proceso mediante una interfaz de línea de comandos y genera un servicio FastAPI limpio y preparado para ejecutarse.
 
-## Demo
+## Funcionalidades
 
-```console
-$ devlaunch create payments-api
-Project generated successfully.
-Location: /workspace/payments-api
-Next steps:
-  cd payments-api
-  python -m venv .venv
-  pip install -e '.[dev]'
-  pytest
-```
+- Generación automática de servicios FastAPI
+- Documentación interactiva con OpenAPI
+- Endpoints `/` y `/health`
+- Pruebas automáticas con Pytest
+- Análisis de calidad con Ruff
+- Comprobación de tipos con MyPy
+- Docker y Docker Compose
+- Integración continua con GitHub Actions
+- Validación del nombre del proyecto
+- Protección frente a directorios existentes
+- Diagnóstico del entorno con `devlaunch doctor`
+- Documentación generada automáticamente
 
-Generated structure:
+## Instalación rápida
 
-```text
-payments-api/
-├── .github/workflows/ci.yml
-├── app/
-│   ├── __init__.py
-│   └── main.py
-├── tests/test_health.py
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── Makefile
-├── README.md
-├── docker-compose.yml
-└── pyproject.toml
-```
-
-## Features
-
-- FastAPI starter service
-- `/health` and `/` endpoints
-- Pytest test suite
-- Ruff linting
-- Docker and Docker Compose
-- GitHub Actions CI
-- Generated documentation
-- Project-name validation
-- Safe handling of existing directories
-- Environment diagnostics with `devlaunch doctor`
-
-## Quick start
+DevLaunch Lite requiere Python 3.11 o superior.
 
 ```bash
+git clone https://github.com/cronoss20/devlaunch-lite.git
+cd devlaunch-lite
+
 python -m venv .venv
 source .venv/bin/activate
-pip install -e '.[dev]'
-devlaunch create payments-api
+
+pip install -e ".[dev]"
+devlaunch create recruiter-api
 ```
 
-Correct final command:
+Para ejecutar el servicio generado:
 
 ```bash
-cd payments-api
-pip install -e '.[dev]'
+cd recruiter-api
+pip install -e ".[dev]"
 pytest
 uvicorn app.main:app --reload
 ```
 
-## Development
+Abre la documentación interactiva en:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+## Comandos principales
+
+Crear un nuevo servicio:
 
 ```bash
-pip install -e '.[dev]'
+devlaunch create payments-api
+```
+
+Elegir otra carpeta de destino:
+
+```bash
+devlaunch create payments-api --destination /tmp
+```
+
+Añadir una descripción personalizada:
+
+```bash
+devlaunch create payments-api \
+  --description "Servicio interno de pagos"
+```
+
+Comprobar el entorno de desarrollo:
+
+```bash
+devlaunch doctor
+```
+
+## Arquitectura
+
+```mermaid
+flowchart LR
+    CLI[Interfaz Typer] --> Validation[Validación]
+    Validation --> Generator[Generador Jinja2]
+    Generator --> Templates[Plantillas FastAPI]
+    Templates --> Output[Servicio listo para ejecutar]
+```
+
+Puedes consultar más información en [docs/architecture.md](docs/architecture.md).
+
+## Controles de calidad
+
+```bash
 ruff check .
 mypy src
 pytest
 ```
 
-## Architecture
+Cada envío de código y cada pull request también se comprueba automáticamente mediante GitHub Actions.
 
-```mermaid
-flowchart LR
-    CLI[Typer CLI] --> Validation[Project validation]
-    Validation --> Generator[Jinja2 generator]
-    Generator --> Templates[FastAPI templates]
-    Templates --> Output[Ready-to-run service]
-```
+## Decisiones técnicas
 
-More detail: [docs/architecture.md](docs/architecture.md)
+- **Python y Typer:** interfaz de comandos tipada y fácil de utilizar.
+- **Jinja2:** separación clara entre la lógica y las plantillas.
+- **Variables estrictas:** evita generar proyectos incompletos.
+- **Primera versión enfocada:** una plantilla FastAPI completa en lugar de varias incompletas.
+- **Calidad automatizada:** pruebas, linting y tipado en cada cambio.
 
-## Design decisions
+## Próximas mejoras
 
-- **Python and Typer:** fast development with a typed, discoverable CLI.
-- **Jinja2 templates:** clear separation between generation logic and generated files.
-- **Strict template variables:** missing context fails early instead of generating broken code.
-- **Small first release:** one excellent FastAPI template rather than many incomplete templates.
+- [ ] Asistente interactivo de configuración
+- [ ] PostgreSQL como opción
+- [ ] Instrumentación con OpenTelemetry
+- [ ] Plantilla para Node.js
+- [ ] Publicación del paquete en PyPI
 
-## Roadmap
+## Autor
 
-- [ ] Add a Node.js template
-- [ ] Add PostgreSQL as an optional component
-- [ ] Add OpenTelemetry instrumentation
-- [ ] Add an interactive configuration wizard
-- [ ] Publish the package to PyPI
+**Ángel Sierra — [cronoss20](https://github.com/cronoss20)**
 
-## Security
+Proyecto de portfolio centrado en Developer Experience, automatización, herramientas reutilizables y calidad de software.
 
-Never place API keys, passwords or personal data in generated projects. See [SECURITY.md](SECURITY.md).
+## Licencia
 
-## License
-
-MIT License. See [LICENSE](LICENSE).
-
-## Demo
-
-DevLaunch Lite generates a ready-to-run FastAPI service with interactive API documentation.
-
-![Generated FastAPI service](docs/images/demo-fastapi.png)
-
+Distribuido bajo licencia MIT. Consulta el archivo [LICENSE](LICENSE).
